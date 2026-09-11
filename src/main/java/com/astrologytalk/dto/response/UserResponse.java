@@ -26,6 +26,10 @@ public class UserResponse {
     private LocalTime timeOfBirth;
 
     private String placeOfBirth;
+    private Double birthLat;
+    private Double birthLng;
+    private String birthTimezone;
+
     private String currentAddress;
     private String city;
     private String state;

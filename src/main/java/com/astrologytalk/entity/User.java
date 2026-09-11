@@ -32,9 +32,6 @@ public class User implements UserDetails {
 
     @Column(unique = true, nullable = false)
     private String email;
-    
-    @Column(name = "phone", length = 20)
-    private String phone;
 
     @Column(nullable = false)
     private String password;
@@ -47,6 +44,9 @@ public class User implements UserDetails {
     @Column(name = "gender")
     private Gender gender;
 
+    @Column(name = "phone", length = 20)
+    private String phone;
+
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
@@ -55,6 +55,15 @@ public class User implements UserDetails {
 
     @Column(name = "place_of_birth")
     private String placeOfBirth;
+
+    @Column(name = "birth_lat")
+    private Double birthLat;
+
+    @Column(name = "birth_lng")
+    private Double birthLng;
+
+    @Column(name = "birth_timezone", length = 20)
+    private String birthTimezone;
 
     @Column(name = "current_address")
     private String currentAddress;

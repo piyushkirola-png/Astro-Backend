@@ -1,0 +1,13 @@
+zodiac,panchang_tithi,karana,yoga,nakshatra,nakshatra_lord,ascendant,ascendant_lord,sunrise,sunset,varna,vashya,yoni,gan,nadi,sign,sign_lord,charan,tatva,name_alphabet,paya,yunja
+Aries,Shukla Pratipada,Bava,Vishkambha,Ashwini,Ketu,Aries,Mars,06:12:00,18:24:00,Kshatriya,Chatushpada,Ashwa,Deva,Adi,Aries,Mars,1,Fire,Chu,Gold,Poorva
+Taurus,Shukla Dwitiya,Balava,Priti,Bharani,Venus,Taurus,Venus,06:15:00,18:22:00,Vaishya,Chatushpada,Gaja,Manushya,Madhya,Taurus,Venus,2,Earth,La,Silver,Madhya
+Gemini,Shukla Tritiya,Kaulava,Ayushman,Krittika,Sun,Gemini,Mercury,06:18:00,18:20:00,Shudra,Manav,Marjaar,Rakshasa,Antya,Gemini,Mercury,3,Air,A,Copper,Antya
+Cancer,Shukla Chaturthi,Taitila,Shobhana,Rohini,Moon,Cancer,Moon,06:20:00,18:18:00,Brahmin,Jalachar,Mesh,Deva,Adi,Cancer,Moon,4,Water,Hi,Gold,Poorva
+Leo,Shukla Panchami,Gar,Atiganda,Mrigashira,Mars,Leo,Sun,06:22:00,18:16:00,Kshatriya,Vanchar,Simha,Manushya,Madhya,Leo,Sun,1,Fire,Mu,Silver,Madhya
+Virgo,Shukla Shashthi,Vanija,Sukarma,Ardra,Rahu,Virgo,Mercury,06:24:00,18:14:00,Vaishya,Manav,Ashwa,Rakshasa,Antya,Virgo,Mercury,2,Earth,Pa,Copper,Antya
+Libra,Shukla Saptami,Vishti,Dhriti,Punarvasu,Jupiter,Libra,Venus,06:26:00,18:12:00,Shudra,Manav,Marjaar,Deva,Adi,Libra,Venus,3,Air,Ra,Gold,Poorva
+Scorpio,Shukla Ashtami,Bava,Shula,Pushya,Saturn,Scorpio,Mars,06:28:00,18:10:00,Brahmin,Keeta,Simha,Manushya,Madhya,Scorpio,Mars,4,Water,Na,Silver,Madhya
+Sagittarius,Shukla Navami,Balava,Ganda,Ashlesha,Mercury,Sagittarius,Jupiter,06:30:00,18:08:00,Kshatriya,Vanchar,Marjaar,Rakshasa,Antya,Sagittarius,Jupiter,1,Fire,Bha,Copper,Antya
+Capricorn,Shukla Dashami,Kaulava,Vriddhi,Magha,Ketu,Capricorn,Saturn,06:32:00,18:06:00,Vaishya,Chatushpada,Mesh,Deva,Adi,Capricorn,Saturn,2,Earth,Pha,Gold,Poorva
+Aquarius,Shukla Ekadashi,Taitila,Dhruva,Purva Phalguni,Venus,Aquarius,Saturn,06:34:00,18:04:00,Shudra,Manav,Gaja,Manushya,Madhya,Aquarius,Saturn,3,Air,Dha,Silver,Madhya
+Pisces,Shukla Dwadashi,Gar,Vyaghata,Uttara Phalguni,Sun,Pisces,Jupiter,06:36:00,18:02:00,Brahmin,Jalachar,Simha,Rakshasa,Antya,Pisces,Jupiter,4,Water,Tha,Copper,Antya

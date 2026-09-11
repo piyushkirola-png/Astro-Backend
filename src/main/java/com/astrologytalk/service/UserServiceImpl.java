@@ -7,6 +7,7 @@ import com.astrologytalk.entity.User;
 import com.astrologytalk.repository.UserRepository;
 import com.astrologytalk.utils.ZodiacUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,16 +18,17 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PlacesService placesService;
 
     private static final DateTimeFormatter DOB_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static final DateTimeFormatter TOB_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
 
-    // ---------- Read ----------
     @Override
     public UserResponse getProfile(Long userId) {
         return mapToUserResponse(findUser(userId));
@@ -44,7 +46,6 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
-    // ---------- Update profile ----------
     @Override
     @Transactional
     public UserResponse updateProfile(Long userId, UpdateProfileRequest req) {
@@ -87,7 +88,30 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        if (req.getPlaceOfBirth() != null)   user.setPlaceOfBirth(blankToNull(req.getPlaceOfBirth()));
+        if (req.getPlaceOfBirth() != null && !req.getPlaceOfBirth().isBlank()) {
+            String newPlace = req.getPlaceOfBirth().trim();
+            String oldPlace = user.getPlaceOfBirth();
+
+            boolean placeChanged = oldPlace == null || !oldPlace.equalsIgnoreCase(newPlace);
+
+            user.setPlaceOfBirth(newPlace);
+
+            if (placeChanged) {
+                log.info("Place changed from '{}' to '{}' — fetching coordinates",
+                        oldPlace, newPlace);
+                PlacesService.GeocodeResult coords = placesService.geocode(newPlace);
+
+                if (coords != null) {
+                    user.setBirthLat(coords.lat());
+                    user.setBirthLng(coords.lng());
+                    user.setBirthTimezone("GMT +05:30"); // default for India
+                    log.info("Saved coordinates: lat={} lng={}", coords.lat(), coords.lng());
+                } else {
+                    log.warn("Could not resolve coordinates for '{}' — leaving old values", newPlace);
+                }
+            }
+        }
+
         if (req.getCurrentAddress() != null) user.setCurrentAddress(blankToNull(req.getCurrentAddress()));
         if (req.getCity() != null)           user.setCity(blankToNull(req.getCity()));
         if (req.getState() != null)          user.setState(blankToNull(req.getState()));
@@ -99,7 +123,6 @@ public class UserServiceImpl implements UserService {
         return mapToUserResponse(updated);
     }
 
-    // ---------- Avatar ----------
     @Override
     @Transactional
     public UserResponse updateAvatar(Long userId, String avatarUrl) {
@@ -108,7 +131,6 @@ public class UserServiceImpl implements UserService {
         return mapToUserResponse(userRepository.save(user));
     }
 
-    // ---------- Delete ----------
     @Override
     @Transactional
     public void deleteUser(Long userId) {
@@ -119,7 +141,6 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(user);
     }
 
-    // ---------- Toggle active ----------
     @Override
     @Transactional
     public UserResponse setActive(Long userId, boolean active) {
@@ -128,7 +149,6 @@ public class UserServiceImpl implements UserService {
         return mapToUserResponse(userRepository.save(user));
     }
 
-    // ---------- Helpers ----------
     private User findUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -151,6 +171,9 @@ public class UserServiceImpl implements UserService {
                 .dateOfBirth(user.getDateOfBirth())
                 .timeOfBirth(user.getTimeOfBirth())
                 .placeOfBirth(user.getPlaceOfBirth())
+                .birthLat(user.getBirthLat())
+                .birthLng(user.getBirthLng())
+                .birthTimezone(user.getBirthTimezone())
                 .currentAddress(user.getCurrentAddress())
                 .city(user.getCity())
                 .state(user.getState())

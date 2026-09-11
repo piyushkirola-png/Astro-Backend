@@ -51,7 +51,6 @@ public class PlacesService {
             List<Map<String, Object>> raw = response.getBody();
             if (raw == null) return List.of();
 
-            // Slim the payload down to what the frontend needs
             List<Map<String, Object>> out = new ArrayList<>();
             for (Map<String, Object> item : raw) {
                 Map<String, Object> slim = new java.util.LinkedHashMap<>();
@@ -70,8 +69,50 @@ public class PlacesService {
             }
             return out;
         } catch (Exception e) {
-            log.warn("Nominatim lookup failed for '{}': {}", query, e.getMessage());
+            log.warn("Nominatim autocomplete failed for '{}': {}", query, e.getMessage());
             return List.of();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public GeocodeResult geocode(String query) {
+        if (query == null || query.isBlank()) return null;
+
+        String url = UriComponentsBuilder
+                .fromHttpUrl(nominatimUrl + "/search")
+                .queryParam("q", query.trim())
+                .queryParam("format", "json")
+                .queryParam("limit", 1)
+                .build()
+                .toUriString();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("User-Agent", userAgent);
+        headers.set("Accept", "application/json");
+
+        try {
+            ResponseEntity<List> response = restTemplate.exchange(
+                    url, HttpMethod.GET, new HttpEntity<>(headers), List.class);
+
+            List<Map<String, Object>> raw = response.getBody();
+            if (raw == null || raw.isEmpty()) {
+                log.warn("Nominatim geocode returned no results for '{}'", query);
+                return null;
+            }
+
+            Map<String, Object> first = raw.get(0);
+            String lat = (String) first.get("lat");
+            String lon = (String) first.get("lon");
+
+            if (lat == null || lon == null) return null;
+
+            return new GeocodeResult(
+                    Double.parseDouble(lat),
+                    Double.parseDouble(lon)
+            );
+        } catch (Exception e) {
+            log.warn("Nominatim geocode failed for '{}': {}", query, e.getMessage());
+            return null;
         }
     }
 
@@ -82,4 +123,7 @@ public class PlacesService {
         }
         return null;
     }
+
+    // Simple DTO
+    public record GeocodeResult(double lat, double lng) {}
 }

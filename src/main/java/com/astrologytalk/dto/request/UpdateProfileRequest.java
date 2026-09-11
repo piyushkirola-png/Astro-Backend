@@ -19,18 +19,15 @@ public class UpdateProfileRequest {
     @Pattern(regexp = "^$|^[+]?[0-9]{10,15}$", message = "Phone must be 10–15 digits")
     private String phone;
 
-    // "MALE" or "FEMALE"
     @Pattern(regexp = "^(MALE|FEMALE)?$", message = "Gender must be MALE or FEMALE")
     private String gender;
 
-    // Format: dd-MM-yyyy (e.g. 12-04-1995)
     @Pattern(
         regexp = "^$|^\\d{2}-\\d{2}-\\d{4}$",
         message = "dateOfBirth must be in dd-MM-yyyy format"
     )
     private String dateOfBirth;
 
-    // Format: HH:mm (24h) (e.g. 08:30)
     @Pattern(
         regexp = "^$|^([01]\\d|2[0-3]):[0-5]\\d$",
         message = "timeOfBirth must be in HH:mm format"
@@ -39,6 +36,12 @@ public class UpdateProfileRequest {
 
     @Size(max = 255)
     private String placeOfBirth;
+
+    private Double birthLat;
+    private Double birthLng;
+
+    @Size(max = 20)
+    private String birthTimezone;
 
     @Size(max = 255)
     private String currentAddress;

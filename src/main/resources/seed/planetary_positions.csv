@@ -1,0 +1,157 @@
+zodiac,planet,sign,sign_lord,nakshatra,nakshatra_lord,degree,retro,house,state,status
+Aries,Ascendant,Aries,Mars,Ashwini,Ketu,0° 0′ 0″,No,1,Bala,OWNED
+Aries,SUN,Aries,Mars,Bharani,Venus,15° 22′ 11″,No,1,Kumara,EXALTED
+Aries,MOON,Taurus,Venus,Rohini,Moon,8° 45′ 30″,No,2,Yuva,EXALTED
+Aries,MERCURY,Pisces,Jupiter,Uttara Bhadrapada,Saturn,27° 10′ 5″,No,12,Vriddha,DEBILITATED
+Aries,VENUS,Aquarius,Saturn,Purva Bhadrapada,Jupiter,21° 33′ 48″,No,11,Mrita,FRIENDLY
+Aries,MARS,Aries,Mars,Ashwini,Ketu,12° 5′ 19″,No,1,Yuva,OWNED
+Aries,JUPITER,Cancer,Moon,Punarvasu,Jupiter,18° 27′ 55″,Yes,4,Kumara,EXALTED
+Aries,SATURN,Capricorn,Saturn,Shravana,Moon,9° 14′ 2″,Yes,10,Bala,OWNED
+Aries,RAHU,Taurus,Venus,Mrigashira,Mars,3° 52′ 44″,Yes,2,Bala,--
+Aries,KETU,Scorpio,Mars,Anuradha,Saturn,3° 52′ 44″,Yes,8,Bala,--
+Aries,NEPTUNE,Pisces,Jupiter,Revati,Mercury,25° 40′ 12″,No,12,Vriddha,--
+Aries,URANUS,Taurus,Venus,Krittika,Sun,14° 8′ 37″,No,2,Kumara,--
+Aries,PLUTO,Capricorn,Saturn,Shravana,Moon,28° 55′ 21″,No,10,Mrita,--
+Taurus,Ascendant,Taurus,Venus,Rohini,Moon,0° 0′ 0″,No,1,Bala,OWNED
+Taurus,SUN,Taurus,Venus,Rohini,Moon,10° 18′ 42″,No,1,Kumara,FRIENDLY
+Taurus,MOON,Cancer,Moon,Ashlesha,Mercury,22° 36′ 9″,No,3,Yuva,OWNED
+Taurus,MERCURY,Gemini,Mercury,Ardra,Rahu,5° 51′ 27″,No,2,Bala,OWNED
+Taurus,VENUS,Taurus,Venus,Rohini,Moon,17° 44′ 3″,No,1,Yuva,OWNED
+Taurus,MARS,Leo,Sun,Magha,Ketu,26° 12′ 38″,No,4,Vriddha,FRIENDLY
+Taurus,JUPITER,Gemini,Mercury,Punarvasu,Jupiter,11° 29′ 50″,No,2,Kumara,NEUTRAL
+Taurus,SATURN,Aquarius,Saturn,Shatabhisha,Rahu,7° 3′ 16″,Yes,10,Bala,OWNED
+Taurus,RAHU,Aries,Mars,Ashwini,Ketu,19° 47′ 25″,Yes,12,Kumara,--
+Taurus,KETU,Libra,Venus,Swati,Rahu,19° 47′ 25″,Yes,6,Kumara,--
+Taurus,NEPTUNE,Aries,Mars,Bharani,Venus,2° 15′ 54″,No,12,Bala,--
+Taurus,URANUS,Taurus,Venus,Krittika,Sun,20° 33′ 11″,No,1,Yuva,--
+Taurus,PLUTO,Aquarius,Saturn,Purva Bhadrapada,Jupiter,4° 58′ 29″,No,10,Bala,--
+Gemini,Ascendant,Gemini,Mercury,Mrigashira,Mars,0° 0′ 0″,No,1,Bala,OWNED
+Gemini,SUN,Gemini,Mercury,Mrigashira,Mars,24° 7′ 33″,No,1,Yuva,FRIENDLY
+Gemini,MOON,Virgo,Mercury,Hasta,Moon,13° 41′ 58″,No,4,Kumara,FRIENDLY
+Gemini,MERCURY,Gemini,Mercury,Mrigashira,Mars,2° 26′ 15″,No,1,Bala,OWNED
+Gemini,VENUS,Leo,Sun,Purva Phalguni,Venus,29° 3′ 47″,No,3,Mrita,ENEMY
+Gemini,MARS,Virgo,Mercury,Uttara Phalguni,Sun,8° 19′ 22″,No,4,Bala,NEUTRAL
+Gemini,JUPITER,Leo,Sun,Magha,Ketu,16° 52′ 6″,No,3,Kumara,FRIENDLY
+Gemini,SATURN,Pisces,Jupiter,Uttara Bhadrapada,Saturn,23° 37′ 41″,Yes,10,Vriddha,NEUTRAL
+Gemini,RAHU,Pisces,Jupiter,Revati,Mercury,11° 5′ 13″,Yes,10,Kumara,--
+Gemini,KETU,Virgo,Mercury,Hasta,Moon,11° 5′ 13″,Yes,4,Kumara,--
+Gemini,NEPTUNE,Taurus,Venus,Rohini,Moon,19° 22′ 36″,No,12,Kumara,--
+Gemini,URANUS,Gemini,Mercury,Ardra,Rahu,27° 48′ 2″,No,1,Vriddha,--
+Gemini,PLUTO,Pisces,Jupiter,Revati,Mercury,15° 31′ 44″,No,10,Kumara,--
+Cancer,Ascendant,Cancer,Moon,Punarvasu,Jupiter,0° 0′ 0″,No,1,Bala,OWNED
+Cancer,SUN,Cancer,Moon,Pushya,Saturn,7° 34′ 19″,No,1,Bala,FRIENDLY
+Cancer,MOON,Libra,Venus,Chitra,Mars,28° 16′ 5″,No,4,Mrita,NEUTRAL
+Cancer,MERCURY,Cancer,Moon,Ashlesha,Mercury,21° 9′ 37″,No,1,Yuva,OWNED
+Cancer,VENUS,Virgo,Mercury,Uttara Phalguni,Sun,14° 43′ 51″,No,3,Kumara,DEBILITATED
+Cancer,MARS,Taurus,Venus,Rohini,Moon,3° 28′ 26″,No,11,Bala,NEUTRAL
+Cancer,JUPITER,Virgo,Mercury,Chitra,Mars,25° 55′ 14″,No,3,Vriddha,ENEMY
+Cancer,SATURN,Sagittarius,Jupiter,Mula,Ketu,12° 47′ 33″,Yes,6,Kumara,NEUTRAL
+Cancer,RAHU,Aquarius,Saturn,Shatabhisha,Rahu,6° 21′ 49″,Yes,8,Bala,--
+Cancer,KETU,Leo,Sun,Magha,Ketu,6° 21′ 49″,Yes,2,Bala,--
+Cancer,NEPTUNE,Cancer,Moon,Pushya,Saturn,10° 54′ 27″,No,1,Kumara,--
+Cancer,URANUS,Cancer,Moon,Ashlesha,Mercury,23° 16′ 58″,No,1,Yuva,--
+Cancer,PLUTO,Sagittarius,Jupiter,Purva Ashadha,Venus,1° 39′ 12″,No,6,Bala,--
+Leo,Ascendant,Leo,Sun,Magha,Ketu,0° 0′ 0″,No,1,Bala,OWNED
+Leo,SUN,Leo,Sun,Purva Phalguni,Venus,19° 26′ 44″,No,1,Kumara,OWNED
+Leo,MOON,Scorpio,Mars,Anuradha,Saturn,9° 58′ 21″,No,4,Bala,DEBILITATED
+Leo,MERCURY,Leo,Sun,Magha,Ketu,11° 37′ 9″,No,1,Kumara,FRIENDLY
+Leo,VENUS,Libra,Venus,Swati,Rahu,26° 14′ 53″,No,3,Vriddha,OWNED
+Leo,MARS,Gemini,Mercury,Punarvasu,Jupiter,17° 5′ 38″,No,11,Kumara,NEUTRAL
+Leo,JUPITER,Scorpio,Mars,Vishakha,Jupiter,4° 42′ 17″,No,4,Bala,FRIENDLY
+Leo,SATURN,Aquarius,Saturn,Purva Bhadrapada,Jupiter,29° 31′ 6″,Yes,7,Mrita,OWNED
+Leo,RAHU,Capricorn,Saturn,Uttara Ashadha,Sun,14° 18′ 35″,Yes,6,Kumara,--
+Leo,KETU,Cancer,Moon,Ashlesha,Mercury,14° 18′ 35″,Yes,12,Kumara,--
+Leo,NEPTUNE,Gemini,Mercury,Ardra,Rahu,28° 47′ 19″,No,11,Vriddha,--
+Leo,URANUS,Gemini,Mercury,Mrigashira,Mars,6° 52′ 41″,No,11,Bala,--
+Leo,PLUTO,Sagittarius,Jupiter,Uttara Ashadha,Sun,9° 24′ 57″,No,5,Bala,--
+Virgo,Ascendant,Virgo,Mercury,Hasta,Moon,0° 0′ 0″,No,1,Bala,OWNED
+Virgo,SUN,Virgo,Mercury,Uttara Phalguni,Sun,3° 49′ 12″,No,1,Bala,DEBILITATED
+Virgo,MOON,Sagittarius,Jupiter,Mula,Ketu,16° 27′ 38″,No,4,Kumara,NEUTRAL
+Virgo,MERCURY,Virgo,Mercury,Hasta,Moon,27° 53′ 4″,No,1,Vriddha,EXALTED
+Virgo,VENUS,Scorpio,Mars,Vishakha,Jupiter,8° 11′ 29″,No,3,Bala,ENEMY
+Virgo,MARS,Cancer,Moon,Ashlesha,Mercury,22° 36′ 47″,No,11,Yuva,DEBILITATED
+Virgo,JUPITER,Cancer,Moon,Punarvasu,Jupiter,13° 58′ 15″,No,11,Kumara,EXALTED
+Virgo,SATURN,Pisces,Jupiter,Revati,Mercury,18° 42′ 50″,Yes,7,Kumara,NEUTRAL
+Virgo,RAHU,Sagittarius,Jupiter,Purva Ashadha,Venus,24° 9′ 26″,Yes,4,Madhya,--
+Virgo,KETU,Gemini,Mercury,Mrigashira,Mars,24° 9′ 26″,Yes,10,Madhya,--
+Virgo,NEPTUNE,Virgo,Mercury,Chitra,Mars,7° 33′ 8″,No,1,Bala,--
+Virgo,URANUS,Virgo,Mercury,Uttara Phalguni,Sun,15° 27′ 36″,No,1,Kumara,--
+Virgo,PLUTO,Capricorn,Saturn,Shravana,Moon,20° 46′ 22″,No,5,Kumara,--
+Libra,Ascendant,Libra,Venus,Chitra,Mars,0° 0′ 0″,No,1,Bala,OWNED
+Libra,SUN,Libra,Venus,Vishakha,Jupiter,17° 12′ 55″,No,1,Kumara,DEBILITATED
+Libra,MOON,Capricorn,Saturn,Uttara Ashadha,Sun,5° 44′ 31″,No,4,Bala,NEUTRAL
+Libra,MERCURY,Libra,Venus,Swati,Rahu,20° 38′ 17″,No,1,Yuva,FRIENDLY
+Libra,VENUS,Sagittarius,Jupiter,Mula,Ketu,13° 26′ 42″,No,3,Kumara,FRIENDLY
+Libra,MARS,Aries,Mars,Bharani,Venus,29° 51′ 9″,No,7,Mrita,OWNED
+Libra,JUPITER,Aries,Mars,Ashwini,Ketu,7° 18′ 34″,No,7,Bala,FRIENDLY
+Libra,SATURN,Taurus,Venus,Rohini,Moon,2° 57′ 21″,Yes,8,Bala,FRIENDLY
+Libra,RAHU,Scorpio,Mars,Anuradha,Saturn,18° 33′ 48″,Yes,2,Kumara,--
+Libra,KETU,Taurus,Venus,Rohini,Moon,18° 33′ 48″,Yes,8,Kumara,--
+Libra,NEPTUNE,Aries,Mars,Bharani,Venus,16° 9′ 53″,No,7,Kumara,--
+Libra,URANUS,Taurus,Venus,Rohini,Moon,24° 41′ 27″,No,8,Yuva,--
+Libra,PLUTO,Aquarius,Saturn,Shatabhisha,Rahu,12° 14′ 6″,No,5,Bala,--
+Scorpio,Ascendant,Scorpio,Mars,Anuradha,Saturn,0° 0′ 0″,No,1,Bala,OWNED
+Scorpio,SUN,Scorpio,Mars,Anuradha,Saturn,28° 3′ 39″,No,1,Vriddha,FRIENDLY
+Scorpio,MOON,Aquarius,Saturn,Purva Bhadrapada,Jupiter,11° 47′ 14″,No,4,Kumara,NEUTRAL
+Scorpio,MERCURY,Scorpio,Mars,Vishakha,Jupiter,6° 22′ 58″,No,1,Bala,ENEMY
+Scorpio,VENUS,Capricorn,Saturn,Shravana,Moon,23° 15′ 26″,No,3,Yuva,FRIENDLY
+Scorpio,MARS,Libra,Venus,Swati,Rahu,15° 39′ 51″,No,12,Kumara,ENEMY
+Scorpio,JUPITER,Taurus,Venus,Rohini,Moon,1° 54′ 7″,No,7,Bala,NEUTRAL
+Scorpio,SATURN,Sagittarius,Jupiter,Mula,Ketu,9° 28′ 33″,Yes,2,Bala,NEUTRAL
+Scorpio,RAHU,Libra,Venus,Chitra,Mars,27° 46′ 19″,Yes,12,Vriddha,--
+Scorpio,KETU,Aries,Mars,Ashwini,Ketu,27° 46′ 19″,Yes,6,Vriddha,--
+Scorpio,NEPTUNE,Pisces,Jupiter,Uttara Bhadrapada,Saturn,21° 32′ 44″,No,5,Kumara,--
+Scorpio,URANUS,Taurus,Venus,Mrigashira,Mars,1° 18′ 25″,No,7,Bala,--
+Scorpio,PLUTO,Capricorn,Saturn,Uttara Ashadha,Sun,26° 9′ 58″,No,3,Vriddha,--
+Sagittarius,Ascendant,Sagittarius,Jupiter,Mula,Ketu,0° 0′ 0″,No,1,Bala,OWNED
+Sagittarius,SUN,Sagittarius,Jupiter,Purva Ashadha,Venus,14° 36′ 22″,No,1,Kumara,FRIENDLY
+Sagittarius,MOON,Pisces,Jupiter,Uttara Bhadrapada,Saturn,29° 52′ 47″,No,4,Mrita,FRIENDLY
+Sagittarius,MERCURY,Sagittarius,Jupiter,Mula,Ketu,9° 11′ 5″,No,1,Bala,NEUTRAL
+Sagittarius,VENUS,Aquarius,Saturn,Shatabhisha,Rahu,4° 43′ 38″,No,3,Bala,FRIENDLY
+Sagittarius,MARS,Scorpio,Mars,Anuradha,Saturn,20° 27′ 16″,No,12,Yuva,OWNED
+Sagittarius,JUPITER,Taurus,Venus,Rohini,Moon,25° 8′ 53″,No,6,Vriddha,NEUTRAL
+Sagittarius,SATURN,Aries,Mars,Bharani,Venus,16° 34′ 29″,Yes,5,Kumara,DEBILITATED
+Sagittarius,RAHU,Virgo,Mercury,Hasta,Moon,8° 55′ 41″,Yes,10,Bala,--
+Sagittarius,KETU,Pisces,Jupiter,Revati,Mercury,8° 55′ 41″,Yes,4,Bala,--
+Sagittarius,NEPTUNE,Leo,Sun,Purva Phalguni,Venus,26° 21′ 17″,No,9,Vriddha,--
+Sagittarius,URANUS,Gemini,Mercury,Ardra,Rahu,11° 6′ 52″,No,7,Bala,--
+Sagittarius,PLUTO,Pisces,Jupiter,Revati,Mercury,3° 48′ 33″,No,4,Bala,--
+Capricorn,Ascendant,Capricorn,Saturn,Uttara Ashadha,Sun,0° 0′ 0″,No,1,Bala,OWNED
+Capricorn,SUN,Capricorn,Saturn,Uttara Ashadha,Sun,25° 18′ 44″,No,1,Vriddha,ENEMY
+Capricorn,MOON,Aries,Mars,Ashwini,Ketu,18° 9′ 26″,No,4,Kumara,NEUTRAL
+Capricorn,MERCURY,Capricorn,Saturn,Shravana,Moon,12° 55′ 3″,No,1,Kumara,FRIENDLY
+Capricorn,VENUS,Pisces,Jupiter,Revati,Mercury,27° 31′ 49″,No,3,Vriddha,EXALTED
+Capricorn,MARS,Capricorn,Saturn,Shravana,Moon,7° 44′ 15″,No,1,Bala,EXALTED
+Capricorn,JUPITER,Libra,Venus,Chitra,Mars,19° 22′ 37″,No,10,Kumara,NEUTRAL
+Capricorn,SATURN,Capricorn,Saturn,Uttara Ashadha,Sun,1° 27′ 58″,Yes,1,Bala,OWNED
+Capricorn,RAHU,Leo,Sun,Magha,Ketu,22° 13′ 4″,Yes,8,Yuva,--
+Capricorn,KETU,Aquarius,Saturn,Shatabhisha,Rahu,22° 13′ 4″,Yes,2,Yuva,--
+Capricorn,NEPTUNE,Cancer,Moon,Ashlesha,Mercury,0° 59′ 31″,No,7,Bala,--
+Capricorn,URANUS,Cancer,Moon,Punarvasu,Jupiter,17° 52′ 46″,No,7,Kumara,--
+Capricorn,PLUTO,Sagittarius,Jupiter,Uttara Ashadha,Sun,14° 33′ 19″,No,12,Kumara,--
+Aquarius,Ascendant,Aquarius,Saturn,Shatabhisha,Rahu,0° 0′ 0″,No,1,Bala,OWNED
+Aquarius,SUN,Aquarius,Saturn,Purva Bhadrapada,Jupiter,11° 42′ 8″,No,1,Kumara,ENEMY
+Aquarius,MOON,Taurus,Venus,Mrigashira,Mars,24° 29′ 35″,No,4,Yuva,EXALTED
+Aquarius,MERCURY,Aquarius,Saturn,Shatabhisha,Rahu,18° 14′ 52″,No,1,Kumara,FRIENDLY
+Aquarius,VENUS,Aries,Mars,Bharani,Venus,10° 37′ 26″,No,3,Kumara,NEUTRAL
+Aquarius,MARS,Sagittarius,Jupiter,Mula,Ketu,2° 51′ 43″,No,11,Bala,FRIENDLY
+Aquarius,JUPITER,Virgo,Mercury,Uttara Phalguni,Sun,28° 46′ 11″,No,8,Vriddha,ENEMY
+Aquarius,SATURN,Pisces,Jupiter,Uttara Bhadrapada,Saturn,6° 19′ 37″,Yes,2,Bala,NEUTRAL
+Aquarius,RAHU,Cancer,Moon,Ashlesha,Mercury,15° 58′ 24″,Yes,6,Kumara,--
+Aquarius,KETU,Capricorn,Saturn,Shravana,Moon,15° 58′ 24″,Yes,12,Kumara,--
+Aquarius,NEPTUNE,Leo,Sun,Magha,Ketu,4° 26′ 15″,No,7,Bala,--
+Aquarius,URANUS,Leo,Sun,Purva Phalguni,Venus,21° 39′ 53″,No,7,Yuva,--
+Aquarius,PLUTO,Capricorn,Saturn,Uttara Ashadha,Sun,18° 7′ 42″,No,12,Kumara,--
+Pisces,Ascendant,Pisces,Jupiter,Revati,Mercury,0° 0′ 0″,No,1,Bala,OWNED
+Pisces,SUN,Pisces,Jupiter,Uttara Bhadrapada,Saturn,6° 25′ 51″,No,1,Bala,FRIENDLY
+Pisces,MOON,Gemini,Mercury,Ardra,Rahu,1° 38′ 29″,No,4,Bala,NEUTRAL
+Pisces,MERCURY,Pisces,Jupiter,Revati,Mercury,23° 47′ 16″,No,1,Yuva,DEBILITATED
+Pisces,VENUS,Taurus,Venus,Rohini,Moon,16° 3′ 44″,No,3,Kumara,OWNED
+Pisces,MARS,Aquarius,Saturn,Purva Bhadrapada,Jupiter,26° 57′ 8″,No,12,Vriddha,NEUTRAL
+Pisces,JUPITER,Scorpio,Mars,Vishakha,Jupiter,10° 41′ 22″,No,9,Bala,FRIENDLY
+Pisces,SATURN,Capricorn,Saturn,Shravana,Moon,21° 14′ 55″,Yes,11,Yuva,OWNED
+Pisces,RAHU,Taurus,Venus,Rohini,Moon,13° 26′ 37″,Yes,3,Kumara,--
+Pisces,KETU,Scorpio,Mars,Anuradha,Saturn,13° 26′ 37″,Yes,9,Kumara,--
+Pisces,NEPTUNE,Pisces,Jupiter,Revati,Mercury,29° 48′ 2″,No,1,Mrita,--
+Pisces,URANUS,Taurus,Venus,Rohini,Moon,9° 17′ 28″,No,3,Bala,--
+Pisces,PLUTO,Capricorn,Saturn,Shravana,Moon,24° 55′ 46″,No,11,Yuva,--
