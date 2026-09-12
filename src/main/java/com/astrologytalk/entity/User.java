@@ -86,8 +86,8 @@ public class User implements UserDetails {
     @Column(name = "zodiac_sign")
     private String zodiacSign;
 
-    @Column(name = "free_messages_used", nullable = false)
-    private Integer freeMessagesUsed = 0;
+    @Column(name = "chat_seconds_balance", nullable = false)
+    private Integer chatSecondsBalance = 120;
 
     @Column(name = "is_active")
     private Boolean isActive = true;
@@ -102,7 +102,7 @@ public class User implements UserDetails {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
-        if (freeMessagesUsed == null) freeMessagesUsed = 0;
+        if (chatSecondsBalance == null) chatSecondsBalance = 120;
     }
 
     @PreUpdate

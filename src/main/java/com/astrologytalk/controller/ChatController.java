@@ -75,4 +75,21 @@ public class ChatController {
         chatService.renameSession(id, user.getId(), title);
         return ResponseEntity.ok(ApiResponse.success("Session renamed", null));
     }
+    
+    @PostMapping("/heartbeat")
+    public ResponseEntity<ApiResponse<Map<String, Integer>>> heartbeat(
+            @AuthenticationPrincipal User user,
+            @RequestBody(required = false) Map<String, Integer> body) {
+
+        int seconds = 10;
+        if (body != null && body.get("seconds") != null) {
+            seconds = Math.max(1, Math.min(60, body.get("seconds")));
+        }
+
+        int newBalance = chatService.heartbeat(user.getId(), seconds);
+
+        return ResponseEntity.ok(ApiResponse.success(
+                "Heartbeat recorded",
+                Map.of("chatSecondsBalance", newBalance)));
+    }
 }

@@ -18,28 +18,22 @@ public class UserResponse {
     private String name;
     private String email;
     private String role;
-
     private String gender;
     private String phone;
-
     private LocalDate dateOfBirth;
     private LocalTime timeOfBirth;
-
     private String placeOfBirth;
     private Double birthLat;
     private Double birthLng;
     private String birthTimezone;
-
+    private Integer chatSecondsBalance;
     private String currentAddress;
     private String city;
     private String state;
     private String country;
     private String pincode;
-
     private String avatarUrl;
-
     private String zodiacSign;
     private Boolean isActive;
-
     private LocalDateTime createdAt;
 }

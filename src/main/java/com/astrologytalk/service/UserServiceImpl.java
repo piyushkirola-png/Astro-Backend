@@ -183,6 +183,7 @@ public class UserServiceImpl implements UserService {
                 .zodiacSign(user.getZodiacSign())
                 .isActive(user.getIsActive())
                 .createdAt(user.getCreatedAt())
+                .chatSecondsBalance(user.getChatSecondsBalance())
                 .build();
     }
 }

@@ -26,7 +26,7 @@ CREATE TABLE
         pincode VARCHAR(10) NULL,
         avatar_url VARCHAR(255) NULL,
         zodiac_sign VARCHAR(20) NULL,
-        free_messages_used INT NOT NULL DEFAULT 0,
+        chat_seconds_balance INT NOT NULL DEFAULT 120,
         is_active BOOLEAN DEFAULT TRUE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -40,34 +40,6 @@ CREATE TABLE
         type VARCHAR(20) NOT NULL,
         content TEXT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
-
-CREATE TABLE
-    IF NOT EXISTS bookings (
-        id BIGINT PRIMARY KEY AUTO_INCREMENT,
-        user_id BIGINT NOT NULL,
-        booking_type VARCHAR(50) NOT NULL,
-        booking_date TIMESTAMP NOT NULL,
-        status VARCHAR(20) DEFAULT 'PENDING',
-        amount DECIMAL(10, 2),
-        notes TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users (id)
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
-
-CREATE TABLE
-    IF NOT EXISTS transactions (
-        id BIGINT PRIMARY KEY AUTO_INCREMENT,
-        user_id BIGINT NOT NULL,
-        booking_id BIGINT,
-        amount DECIMAL(10, 2) NOT NULL,
-        payment_method VARCHAR(50),
-        transaction_id VARCHAR(100) UNIQUE,
-        status VARCHAR(20) DEFAULT 'PENDING',
-        gateway_response TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users (id),
-        FOREIGN KEY (booking_id) REFERENCES bookings (id)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE
@@ -213,4 +185,103 @@ CREATE TABLE
         paragraph1 TEXT,
         paragraph2 TEXT,
         INDEX idx_dasha_zodiac (zodiac)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE
+    IF NOT EXISTS payment_categories (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        code VARCHAR(32) NOT NULL UNIQUE,
+        name VARCHAR(100) NOT NULL,
+        amount DECIMAL(10, 2) NOT NULL,
+        description VARCHAR(255),
+        is_active BOOLEAN DEFAULT TRUE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE
+    IF NOT EXISTS wallet_packages (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        amount DECIMAL(10, 2) NOT NULL,
+        seconds_credited INT NOT NULL,
+        label VARCHAR(50) NOT NULL,
+        display_order INT NOT NULL DEFAULT 0,
+        is_active BOOLEAN DEFAULT TRUE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        INDEX idx_wallet_active_order (is_active, display_order)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE
+    IF NOT EXISTS payments (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        user_id BIGINT NOT NULL,
+        category_code VARCHAR(32) NULL,
+        package_id BIGINT NULL,
+        amount DECIMAL(10, 2) NOT NULL,
+        currency VARCHAR(8) NOT NULL DEFAULT 'INR',
+        status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
+        gateway VARCHAR(32) NOT NULL,
+        gateway_order_id VARCHAR(100) NOT NULL UNIQUE,
+        gateway_payment_id VARCHAR(100) NULL,
+        payment_link VARCHAR(500) NULL,
+        utr VARCHAR(100) NULL,
+        signature_verified BOOLEAN DEFAULT FALSE,
+        customer_name VARCHAR(100) NULL,
+        customer_email VARCHAR(100) NULL,
+        customer_phone VARCHAR(20) NULL,
+        payment_mode VARCHAR(32) NULL,
+        seconds_credited INT NULL,
+        failure_reason VARCHAR(500) NULL,
+        failure_code VARCHAR(64) NULL,
+        notes VARCHAR(500) NULL,
+        metadata TEXT NULL,
+        ip_address VARCHAR(45) NULL,
+        user_agent VARCHAR(255) NULL,
+        processed_at TIMESTAMP NULL,
+        completed_at TIMESTAMP NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users (id),
+        INDEX idx_payments_user (user_id),
+        INDEX idx_payments_status (status),
+        INDEX idx_payments_user_status (user_id, status),
+        INDEX idx_payments_category (category_code),
+        INDEX idx_payments_created (created_at)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE
+    IF NOT EXISTS webhook_inbound_logs (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        gateway VARCHAR(32) NOT NULL,
+        event_type VARCHAR(64) NULL,
+        order_id VARCHAR(100) NULL,
+        payment_id VARCHAR(100) NULL,
+        amount DECIMAL(10, 2) NULL,
+        status VARCHAR(20) NULL,
+        signature_verified BOOLEAN DEFAULT FALSE,
+        request_body TEXT NULL,
+        request_headers TEXT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_webhook_gateway (gateway),
+        INDEX idx_webhook_order (order_id),
+        INDEX idx_webhook_created (created_at)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE
+    IF NOT EXISTS report_entries (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        type VARCHAR(20) NOT NULL,
+        zodiac VARCHAR(20) NULL,
+        category VARCHAR(64) NULL,
+        title VARCHAR(255) NULL,
+        content TEXT NULL,
+        field1 VARCHAR(255) NULL,
+        field2 VARCHAR(255) NULL,
+        field3 VARCHAR(255) NULL,
+        field4 VARCHAR(255) NULL,
+        is_active BOOLEAN DEFAULT TRUE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_report_type (type),
+        INDEX idx_report_zodiac (zodiac)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;

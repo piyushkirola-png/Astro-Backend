@@ -18,6 +18,5 @@ public class ChatSessionDetailResponse {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<ChatMessageResponse> messages;
-    private Integer freeMessagesUsed;
-    private Integer freeMessagesLimit;
+    private Integer chatSecondsBalance;
 }

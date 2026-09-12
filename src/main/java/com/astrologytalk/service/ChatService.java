@@ -27,8 +27,6 @@ public class ChatService {
     private final UserRepository userRepo;
     private final OpenAiService openAiService;
 
-    public static final int FREE_MESSAGE_LIMIT = 3;
-
     // ---------- Create session + greeting ----------
     @Transactional
     public ChatSessionDetailResponse createSession(Long userId) {
@@ -81,8 +79,7 @@ public class ChatService {
                 .createdAt(session.getCreatedAt())
                 .updatedAt(session.getUpdatedAt())
                 .messages(messages)
-                .freeMessagesUsed(user.getFreeMessagesUsed())
-                .freeMessagesLimit(FREE_MESSAGE_LIMIT)
+                .chatSecondsBalance(user.getChatSecondsBalance())
                 .build();
     }
 
@@ -97,17 +94,13 @@ public class ChatService {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        int used = user.getFreeMessagesUsed() == null ? 0 : user.getFreeMessagesUsed();
-        if (used >= FREE_MESSAGE_LIMIT) {
+        int balance = user.getChatSecondsBalance() == null ? 0 : user.getChatSecondsBalance();
+        if (balance <= 0) {
             throw new PaymentRequiredException(
-                    "You've used all " + FREE_MESSAGE_LIMIT +
-                    " free messages. Please purchase credits to continue.");
+                    "Your chat time is over. Please recharge to continue.");
         }
 
         addMessage(session, MessageRole.USER, content);
-
-        user.setFreeMessagesUsed(used + 1);
-        userRepo.save(user);
 
         if ("New Chat".equals(session.getTitle())) {
             session.setTitle(shorten(content, 40));
@@ -121,6 +114,20 @@ public class ChatService {
         return toMessageResponse(aiMsg);
     }
 
+    // ---------- Heartbeat — decrement balance ----------
+    @Transactional
+    public int heartbeat(Long userId, int seconds) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        int current = user.getChatSecondsBalance() == null ? 0 : user.getChatSecondsBalance();
+        int updated = Math.max(0, current - seconds);
+        user.setChatSecondsBalance(updated);
+        userRepo.save(user);
+
+        return updated;
+    }
+
     // ---------- Delete session ----------
     @Transactional
     public void deleteSession(Long sessionId, Long userId) {
@@ -131,7 +138,7 @@ public class ChatService {
         sessionRepo.delete(session);
     }
 
-    // ---------- Rename session (NEW) ----------
+    // ---------- Rename session ----------
     @Transactional
     public void renameSession(Long sessionId, Long userId, String title) {
         ChatSession session = sessionRepo.findById(sessionId)

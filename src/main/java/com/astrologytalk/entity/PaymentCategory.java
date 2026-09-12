@@ -10,44 +10,47 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "transactions")
+@Table(name = "payment_categories")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transaction {
+public class PaymentCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(nullable = false, unique = true, length = 32)
+    private String code;
 
-    @Column(name = "booking_id")
-    private Long bookingId;
+    @Column(nullable = false, length = 100)
+    private String name;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
-    @Column(name = "payment_method")
-    private String paymentMethod;
+    @Column(length = 255)
+    private String description;
 
-    @Column(name = "transaction_id", unique = true)
-    private String transactionId;
-
-    @Column(nullable = false)
-    private String status = "PENDING";
-
-    @Column(name = "gateway_response", columnDefinition = "TEXT")
-    private String gatewayResponse;
+    @Column(name = "is_active")
+    private Boolean isActive = true;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+        if (isActive == null) isActive = true;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 }

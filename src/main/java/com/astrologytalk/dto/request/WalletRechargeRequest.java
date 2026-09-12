@@ -10,10 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentRequest {
+public class WalletRechargeRequest {
+
+    @NotNull(message = "Package ID is required")
+    private Long packageId;
 
     @NotNull(message = "Gateway is required")
     private String gateway;
-
-    private String notes;
 }

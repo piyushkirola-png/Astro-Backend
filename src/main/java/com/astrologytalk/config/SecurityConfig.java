@@ -29,6 +29,7 @@ public class SecurityConfig {
         "/api/auth/register",
         "/api/horoscope/**",
         "/api/places/**",
+        "/api/webhooks/**",
         "/uploads/**",
         "/swagger-ui/**",
         "/v3/api-docs/**"

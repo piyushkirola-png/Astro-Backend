@@ -4,7 +4,6 @@ import com.astrologytalk.dto.response.AdminStatsResponse;
 import com.astrologytalk.dto.response.AdminStatsResponse.DayPoint;
 import com.astrologytalk.repository.ChatMessageRepository;
 import com.astrologytalk.repository.ChatSessionRepository;
-import com.astrologytalk.repository.TransactionRepository;
 import com.astrologytalk.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,6 @@ public class AdminServiceImpl implements AdminService {
     private final UserRepository userRepository;
     private final ChatSessionRepository chatSessionRepository;
     private final ChatMessageRepository chatMessageRepository;
-    private final TransactionRepository transactionRepository;
 
     private static final int DAYS = 7;
     private static final DateTimeFormatter ISO = DateTimeFormatter.ISO_DATE;
@@ -35,7 +33,7 @@ public class AdminServiceImpl implements AdminService {
         // ---- Active sessions (open chat sessions) ----
         long activeSessions = chatSessionRepository.count();
 
-        // ---- Total revenue ----
+        // ---- Total revenue (wired to PaymentRepository in Batch 3) ----
         long totalRevenue = 0L;
 
         // ---- Build last 7 days labels ----
