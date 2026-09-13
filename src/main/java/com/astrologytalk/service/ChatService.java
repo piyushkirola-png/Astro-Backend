@@ -24,7 +24,8 @@ public class ChatService {
   private final ChatSessionRepository sessionRepo;
   private final ChatMessageRepository messageRepo;
   private final UserRepository userRepo;
-  private final OpenAiService openAiService;
+  // private final OpenAiService openAiService;
+  private final GeminiService geminiService;
 
   // ---------- Create session + greeting ----------
   @Transactional
@@ -105,7 +106,8 @@ public class ChatService {
     }
 
     List<ChatMessage> history = messageRepo.findBySessionIdOrderByCreatedAtAsc(sessionId);
-    String aiText = openAiService.generateReply(history);
+    // String aiText = openAiService.generateReply(history);
+    String aiText = geminiService.generateReply(history);
 
     ChatMessage aiMsg = addMessage(session, MessageRole.ASSISTANT, aiText);
     return toMessageResponse(aiMsg);

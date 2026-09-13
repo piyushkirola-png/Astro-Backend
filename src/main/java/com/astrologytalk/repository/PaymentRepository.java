@@ -34,15 +34,27 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
   List<String> findTopInvoiceByYearPrefix(
       @Param("yearPrefix") String yearPrefix, org.springframework.data.domain.Pageable pageable);
 
-    @Query("SELECT COALESCE(SUM(p.amount), 0) FROM Payment p " +
-           "WHERE p.status = 'SUCCESS' AND p.categoryCode = 'WALLET' " +
-           "AND p.secondsCredited BETWEEN :minSec AND :maxSec")
-    java.math.BigDecimal sumRevenueBySecondsRange(
-            @Param("minSec") Integer minSec,
-            @Param("maxSec") Integer maxSec);
+  @Query(
+      "SELECT COALESCE(SUM(p.amount), 0) FROM Payment p "
+          + "WHERE p.status = 'SUCCESS' AND p.categoryCode = 'WALLET' "
+          + "AND p.secondsCredited BETWEEN :minSec AND :maxSec")
+  java.math.BigDecimal sumRevenueBySecondsRange(
+      @Param("minSec") Integer minSec, @Param("maxSec") Integer maxSec);
 
-    @Query("SELECT p.status, COUNT(p) FROM Payment p GROUP BY p.status")
-    List<Object[]> countByStatusGrouped();
+  @Query("SELECT p.status, COUNT(p) FROM Payment p GROUP BY p.status")
+  List<Object[]> countByStatusGrouped();
+
+  @Query(
+      "SELECT COALESCE(SUM(p.baseAmount), 0) FROM Payment p "
+          + "WHERE p.user.id = :userId AND p.status = 'SUCCESS' "
+          + "AND p.categoryCode = 'WALLET'")
+  java.math.BigDecimal sumWalletBaseAmountByUser(@Param("userId") Long userId);
+
+  @Query(
+      "SELECT COALESCE(SUM(p.secondsCredited), 0) FROM Payment p "
+          + "WHERE p.user.id = :userId AND p.status = 'SUCCESS' "
+          + "AND p.categoryCode = 'WALLET'")
+  Long sumWalletSecondsByUser(@Param("userId") Long userId);
 
   default Optional<String> findMaxInvoiceNumberForYear(String yearPrefix) {
     List<String> results =

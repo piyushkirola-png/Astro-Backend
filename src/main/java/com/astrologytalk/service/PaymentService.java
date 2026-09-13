@@ -175,11 +175,27 @@ public class PaymentService {
     int minutes = seconds / 60;
     int remainingSeconds = seconds % 60;
 
+    java.math.BigDecimal totalBase = paymentRepository.sumWalletBaseAmountByUser(userId);
+    Long totalSeconds = paymentRepository.sumWalletSecondsByUser(userId);
+
+    java.math.BigDecimal valueRupees = java.math.BigDecimal.ZERO;
+
+    if (totalBase != null && totalSeconds != null && totalSeconds > 0) {
+      java.math.BigDecimal rate =
+          totalBase.divide(
+              java.math.BigDecimal.valueOf(totalSeconds), 6, java.math.RoundingMode.HALF_UP);
+
+      valueRupees =
+          rate.multiply(java.math.BigDecimal.valueOf(seconds))
+              .setScale(2, java.math.RoundingMode.HALF_UP);
+    }
+
     java.util.Map<String, Object> result = new java.util.HashMap<>();
     result.put("seconds", seconds);
     result.put("minutes", minutes);
     result.put("remainingSeconds", remainingSeconds);
     result.put("formatted", String.format("%d:%02d", minutes, remainingSeconds));
+    result.put("valueRupees", valueRupees);
     return result;
   }
 
