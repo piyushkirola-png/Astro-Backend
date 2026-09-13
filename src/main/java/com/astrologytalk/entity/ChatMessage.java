@@ -1,12 +1,11 @@
 package com.astrologytalk.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "chat_messages")
@@ -16,26 +15,26 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ChatMessage {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "session_id", nullable = false)
-    private ChatSession session;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "session_id", nullable = false)
+  private ChatSession session;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private MessageRole role;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private MessageRole role;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String content;
+  @Column(columnDefinition = "TEXT", nullable = false)
+  private String content;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+  @Column(name = "created_at")
+  private LocalDateTime createdAt;
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
+  @PrePersist
+  protected void onCreate() {
+    createdAt = LocalDateTime.now();
+  }
 }

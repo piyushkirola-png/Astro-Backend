@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WalletRechargeRequest {
 
-    @NotNull(message = "Package ID is required")
-    private Long packageId;
+  @NotNull(message = "Package ID is required")
+  private Long packageId;
 
-    @NotNull(message = "Gateway is required")
-    private String gateway;
+  @NotNull(message = "Gateway is required")
+  private String gateway;
 }

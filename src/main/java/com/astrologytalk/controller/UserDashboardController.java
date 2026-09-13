@@ -16,15 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserDashboardController {
 
-    private final DailyReadingService dailyReadingService;
+  private final DailyReadingService dailyReadingService;
 
-    @GetMapping("/daily")
-    public ResponseEntity<ApiResponse<DailyReadingResponse>> getDaily(
-            @AuthenticationPrincipal User user) {
+  @GetMapping("/daily")
+  public ResponseEntity<ApiResponse<DailyReadingResponse>> getDaily(
+      @AuthenticationPrincipal User user) {
 
-        DailyReadingResponse reading =
-                dailyReadingService.getOrGenerateForToday(user.getId());
+    DailyReadingResponse reading = dailyReadingService.getOrGenerateForToday(user.getId());
 
-        return ResponseEntity.ok(ApiResponse.success("Daily reading fetched", reading));
-    }
+    return ResponseEntity.ok(ApiResponse.success("Daily reading fetched", reading));
+  }
 }

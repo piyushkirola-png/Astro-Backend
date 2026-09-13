@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PaymentRequest {
 
-    @NotNull(message = "Gateway is required")
-    private String gateway;
+  @NotNull(message = "Gateway is required")
+  private String gateway;
 
-    private String notes;
+  private String notes;
 }

@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
-    private final AdminService adminService;
+  private final AdminService adminService;
 
-    @GetMapping("/stats")
-    public ResponseEntity<ApiResponse<AdminStatsResponse>> getStats() {
-        AdminStatsResponse stats = adminService.getStats();
-        return ResponseEntity.ok(ApiResponse.success("Stats retrieved", stats));
-    }
+  @GetMapping("/stats")
+  public ResponseEntity<ApiResponse<AdminStatsResponse>> getStats() {
+    AdminStatsResponse stats = adminService.getStats();
+    return ResponseEntity.ok(ApiResponse.success("Stats retrieved", stats));
+  }
 }

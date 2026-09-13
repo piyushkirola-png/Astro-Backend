@@ -1,11 +1,10 @@
 package com.astrologytalk.dto.response;
 
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -13,10 +12,10 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class PaymentInitiateResponse {
 
-    private Long paymentId;
-    private String gatewayOrderId;
-    private String paymentLink;
-    private String gateway;
-    private BigDecimal amount;
-    private String status;
+  private Long paymentId;
+  private String gatewayOrderId;
+  private String paymentLink;
+  private String gateway;
+  private BigDecimal amount;
+  private String status;
 }

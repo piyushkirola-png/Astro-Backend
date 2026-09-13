@@ -16,39 +16,39 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PlanetaryPosition {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(nullable = false, length = 20)
-    private String zodiac;
+  @Column(nullable = false, length = 20)
+  private String zodiac;
 
-    @Column(nullable = false, length = 32)
-    private String planet;
+  @Column(nullable = false, length = 32)
+  private String planet;
 
-    @Column(length = 32)
-    private String sign;
+  @Column(length = 32)
+  private String sign;
 
-    @Column(name = "sign_lord", length = 32)
-    private String signLord;
+  @Column(name = "sign_lord", length = 32)
+  private String signLord;
 
-    @Column(length = 64)
-    private String nakshatra;
+  @Column(length = 64)
+  private String nakshatra;
 
-    @Column(name = "nakshatra_lord", length = 32)
-    private String nakshatraLord;
+  @Column(name = "nakshatra_lord", length = 32)
+  private String nakshatraLord;
 
-    @Column(length = 32)
-    private String degree;
+  @Column(length = 32)
+  private String degree;
 
-    @Column(length = 8)
-    private String retro;
+  @Column(length = 8)
+  private String retro;
 
-    private Integer house;
+  private Integer house;
 
-    @Column(length = 16)
-    private String state;
+  @Column(length = 16)
+  private String state;
 
-    @Column(length = 32)
-    private String status;
+  @Column(length = 32)
+  private String status;
 }

@@ -219,6 +219,10 @@ CREATE TABLE
         category_code VARCHAR(32) NULL,
         package_id BIGINT NULL,
         amount DECIMAL(10, 2) NOT NULL,
+        base_amount DECIMAL(10, 2) NULL,
+        gst_amount DECIMAL(10, 2) NULL,
+        gst_rate DECIMAL(5, 2) NULL,
+        invoice_number VARCHAR(32) NULL UNIQUE,,
         currency VARCHAR(8) NOT NULL DEFAULT 'INR',
         status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
         gateway VARCHAR(32) NOT NULL,
@@ -284,4 +288,23 @@ CREATE TABLE
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         INDEX idx_report_type (type),
         INDEX idx_report_zodiac (zodiac)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE
+    IF NOT EXISTS horoscope_entries (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        zodiac VARCHAR(20) NOT NULL,
+        period VARCHAR(20) NOT NULL,
+        variant INT NOT NULL,
+        content TEXT NULL,
+        love_text TEXT NULL,
+        career_text TEXT NULL,
+        health_text TEXT NULL,
+        money_text TEXT NULL,
+        lucky_number INT NULL,
+        lucky_color VARCHAR(32) NULL,
+        is_active BOOLEAN DEFAULT TRUE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE KEY uq_horoscope_variant (zodiac, period, variant),
+        INDEX idx_horoscope_lookup (zodiac, period, is_active)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;

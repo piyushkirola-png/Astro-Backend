@@ -1,6 +1,5 @@
 package com.astrologytalk.security;
 
-import com.astrologytalk.entity.User;
 import com.astrologytalk.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,12 +10,13 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-    
-    private final UserRepository userRepository;
-    
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
-    }
+
+  private final UserRepository userRepository;
+
+  @Override
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    return userRepository
+        .findByEmail(email)
+        .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+  }
 }
