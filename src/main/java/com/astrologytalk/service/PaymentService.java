@@ -10,6 +10,7 @@ import com.astrologytalk.entity.User;
 import com.astrologytalk.entity.WalletPackage;
 import com.astrologytalk.paymentgateway.cashfree.CashfreeGatewayService;
 import com.astrologytalk.paymentgateway.sabpaisa.SabPaisaGatewayService;
+import com.astrologytalk.paymentgateway.payu.PayUGatewayService;
 import com.astrologytalk.repository.PaymentCategoryRepository;
 import com.astrologytalk.repository.PaymentRepository;
 import com.astrologytalk.repository.UserRepository;
@@ -34,8 +35,12 @@ public class PaymentService {
   private final UserRepository userRepository;
   private final InvoicePdfService invoicePdfService;
   private final InvoiceNumberService invoiceNumberService;
+
+
   private final CashfreeGatewayService cashfreeGatewayService;
   private final SabPaisaGatewayService sabPaisaGatewayService;
+  private final PayUGatewayService payUGatewayService;
+
 
   private static final String REPORT_CODE = "REPORT";
   private static final java.math.BigDecimal GST_RATE = new java.math.BigDecimal("18.00");
@@ -227,6 +232,7 @@ public class PaymentService {
         switch (gateway) {
           case "CASHFREE" -> cashfreeGatewayService.initiate(payment, user);
           case "SABPAISA" -> sabPaisaGatewayService.initiate(payment, user);
+          case "PAYU" -> payUGatewayService.initiate(payment, user);
           default -> throw new RuntimeException("Unsupported gateway: " + gateway);
         };
 

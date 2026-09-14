@@ -32,6 +32,9 @@ public class SecurityConfig {
     "/api/horoscope/**",
     "/api/places/**",
     "/api/webhooks/**",
+    "/api/payments/payu/**",
+    "/api/payments/payu/response",
+    "/api/payments/payu/redirect/**",
     "/uploads/**",
     "/swagger-ui/**",
     "/v3/api-docs/**"

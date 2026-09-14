@@ -178,72 +178,72 @@ public class EmailService {
         + "</div></body></html>";
   }
 
-    private String buildWelcomeHtml(User user) {
-        String firstName = firstName(user.getName());
+  private String buildWelcomeHtml(User user) {
+    String firstName = firstName(user.getName());
 
-        return "<!DOCTYPE html>"
-            + "<html><body style=\"margin:0;padding:0;background:#faf8f4;font-family:Arial,'Helvetica Neue',sans-serif;color:#17120c;\">"
-            + "<div style=\"max-width:560px;margin:0 auto;padding:32px 20px;\">"
+    return "<!DOCTYPE html>"
+        + "<html><body style=\"margin:0;padding:0;background:#faf8f4;font-family:Arial,'Helvetica Neue',sans-serif;color:#17120c;\">"
+        + "<div style=\"max-width:560px;margin:0 auto;padding:32px 20px;\">"
 
-            // Outer card
-            + "<div style=\"background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.05);border:1px solid #f4f1ea;\">"
+        // Outer card
+        + "<div style=\"background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.05);border:1px solid #f4f1ea;\">"
 
-            // Gradient hero
-            + "<div style=\"background:linear-gradient(135deg,#b8862a 0%,#f59e0b 100%);padding:36px 28px;text-align:center;\">"
-            + "<div style=\"font-size:42px;line-height:1;margin-bottom:12px;\">🌟</div>"
-            + "<h1 style=\"margin:0 0 6px;font-size:24px;font-weight:700;color:#ffffff;letter-spacing:-0.3px;\">Welcome to " + appName + "</h1>"
-            + "<p style=\"margin:0;color:rgba(255,255,255,0.85);font-size:14px;\">Your journey to cosmic wisdom begins now</p>"
-            + "</div>"
+        // Gradient hero
+        + "<div style=\"background:linear-gradient(135deg,#b8862a 0%,#f59e0b 100%);padding:36px 28px;text-align:center;\">"
+        + "<div style=\"font-size:42px;line-height:1;margin-bottom:12px;\">🌟</div>"
+        + "<h1 style=\"margin:0 0 6px;font-size:24px;font-weight:700;color:#ffffff;letter-spacing:-0.3px;\">Welcome to "
+        + appName
+        + "</h1>"
+        + "<p style=\"margin:0;color:rgba(255,255,255,0.85);font-size:14px;\">Your journey to cosmic wisdom begins now</p>"
+        + "</div>"
 
-            // Body
-            + "<div style=\"padding:32px 28px 24px;\">"
+        // Body
+        + "<div style=\"padding:32px 28px 24px;\">"
+        + "<p style=\"margin:0 0 18px;font-size:16px;color:#3f382d;\">Namaste <strong style=\"color:#17120c;\">"
+        + escape(firstName)
+        + "</strong> ji 🙏</p>"
+        + "<p style=\"margin:0 0 24px;font-size:14px;line-height:1.6;color:#585043;\">We're delighted to have you at <strong>"
+        + appName
+        + "</strong>. You now have access to AI-powered Vedic guidance for career, love, health, wealth, and spirituality — available 24/7.</p>"
 
-            + "<p style=\"margin:0 0 18px;font-size:16px;color:#3f382d;\">Namaste <strong style=\"color:#17120c;\">" + escape(firstName) + "</strong> ji 🙏</p>"
+        // Free gift box
+        + "<div style=\"background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%);border:1px solid #fde68a;border-radius:14px;padding:20px;margin-bottom:24px;text-align:center;\">"
+        + "<div style=\"font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#92400e;font-weight:700;margin-bottom:8px;\">🎁 Your Free Welcome Gift</div>"
+        + "<div style=\"font-size:28px;font-weight:800;color:#b45309;margin-bottom:4px;\">120 seconds</div>"
+        + "<div style=\"font-size:13px;color:#78350f;\">2 minutes of free chat with Jyotish AI</div>"
+        + "</div>"
+        + "<p style=\"margin:0 0 20px;font-size:14px;color:#585043;\">Just open the chat, ask your first question, and receive guidance rooted in ancient Vedic wisdom.</p>"
 
-            + "<p style=\"margin:0 0 24px;font-size:14px;line-height:1.6;color:#585043;\">We're delighted to have you at <strong>" + appName + "</strong>. You now have access to AI-powered Vedic guidance for career, love, health, wealth, and spirituality — available 24/7.</p>"
+        // CTA Button
+        + "<div style=\"text-align:center;margin-bottom:24px;\">"
+        + "<a href=\"http://localhost:5170/user/chat\" style=\"display:inline-block;background:linear-gradient(135deg,#b8862a 0%,#f59e0b 100%);color:#ffffff;text-decoration:none;font-weight:600;font-size:14px;padding:14px 32px;border-radius:12px;\">Start Chatting Now →</a>"
+        + "</div>"
 
-            // Free gift box
-            + "<div style=\"background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%);border:1px solid #fde68a;border-radius:14px;padding:20px;margin-bottom:24px;text-align:center;\">"
-            + "<div style=\"font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#92400e;font-weight:700;margin-bottom:8px;\">🎁 Your Free Welcome Gift</div>"
-            + "<div style=\"font-size:28px;font-weight:800;color:#b45309;margin-bottom:4px;\">120 seconds</div>"
-            + "<div style=\"font-size:13px;color:#78350f;\">2 minutes of free chat with Jyotish AI</div>"
-            + "</div>"
+        // Quick features list
+        + "<div style=\"border-top:1px solid #f4f1ea;padding-top:20px;\">"
+        + "<div style=\"font-size:13px;font-weight:700;color:#17120c;margin-bottom:12px;\">What you can explore:</div>"
+        + "<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">"
+        + "<tr><td style=\"padding:6px 0;font-size:13px;color:#585043;\">🔮 <strong style=\"color:#17120c;\">Personalized Kundali</strong> — detailed birth chart analysis</td></tr>"
+        + "<tr><td style=\"padding:6px 0;font-size:13px;color:#585043;\">📅 <strong style=\"color:#17120c;\">Daily Horoscope</strong> — forecasts for today, week, month, year</td></tr>"
+        + "<tr><td style=\"padding:6px 0;font-size:13px;color:#585043;\">💬 <strong style=\"color:#17120c;\">AI Astrologer Chat</strong> — 24/7 guidance on any question</td></tr>"
+        + "<tr><td style=\"padding:6px 0;font-size:13px;color:#585043;\">📜 <strong style=\"color:#17120c;\">Full Vedic Report</strong> — remedies, doshas, gemstones</td></tr>"
+        + "</table>"
+        + "</div>"
+        + "</div>"
 
-            + "<p style=\"margin:0 0 20px;font-size:14px;color:#585043;\">Just open the chat, ask your first question, and receive guidance rooted in ancient Vedic wisdom.</p>"
+        // Footer
+        + "<div style=\"background:#faf8f4;padding:20px 28px;text-align:center;border-top:1px solid #f4f1ea;\">"
+        + "<p style=\"margin:0 0 6px;font-size:12px;color:#7a7260;\">Have questions? We're here to help.</p>"
+        + "<p style=\"margin:0;font-size:12px;color:#a29a86;\">Reply to this email or contact <a href=\"mailto:support@jyotishai.com\" style=\"color:#b8862a;text-decoration:none;\">support@jyotishai.com</a></p>"
+        + "</div>"
+        + "</div>"
 
-            // CTA Button
-            + "<div style=\"text-align:center;margin-bottom:24px;\">"
-            + "<a href=\"http://localhost:5170/user/chat\" style=\"display:inline-block;background:linear-gradient(135deg,#b8862a 0%,#f59e0b 100%);color:#ffffff;text-decoration:none;font-weight:600;font-size:14px;padding:14px 32px;border-radius:12px;\">Start Chatting Now →</a>"
-            + "</div>"
-
-            // Quick features list
-            + "<div style=\"border-top:1px solid #f4f1ea;padding-top:20px;\">"
-            + "<div style=\"font-size:13px;font-weight:700;color:#17120c;margin-bottom:12px;\">What you can explore:</div>"
-            + "<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">"
-
-            + "<tr><td style=\"padding:6px 0;font-size:13px;color:#585043;\">🔮 <strong style=\"color:#17120c;\">Personalized Kundali</strong> — detailed birth chart analysis</td></tr>"
-            + "<tr><td style=\"padding:6px 0;font-size:13px;color:#585043;\">📅 <strong style=\"color:#17120c;\">Daily Horoscope</strong> — forecasts for today, week, month, year</td></tr>"
-            + "<tr><td style=\"padding:6px 0;font-size:13px;color:#585043;\">💬 <strong style=\"color:#17120c;\">AI Astrologer Chat</strong> — 24/7 guidance on any question</td></tr>"
-            + "<tr><td style=\"padding:6px 0;font-size:13px;color:#585043;\">📜 <strong style=\"color:#17120c;\">Full Vedic Report</strong> — remedies, doshas, gemstones</td></tr>"
-
-            + "</table>"
-            + "</div>"
-
-            + "</div>"
-
-            // Footer
-            + "<div style=\"background:#faf8f4;padding:20px 28px;text-align:center;border-top:1px solid #f4f1ea;\">"
-            + "<p style=\"margin:0 0 6px;font-size:12px;color:#7a7260;\">Have questions? We're here to help.</p>"
-            + "<p style=\"margin:0;font-size:12px;color:#a29a86;\">Reply to this email or contact <a href=\"mailto:support@jyotishai.com\" style=\"color:#b8862a;text-decoration:none;\">support@jyotishai.com</a></p>"
-            + "</div>"
-
-            + "</div>"
-
-            // Bottom note
-            + "<p style=\"text-align:center;font-size:11px;color:#a29a86;margin:20px 0 0;\">— Team " + appName + " · Vedic wisdom, modern guidance</p>"
-
-            + "</div></body></html>";
-    }
+        // Bottom note
+        + "<p style=\"text-align:center;font-size:11px;color:#a29a86;margin:20px 0 0;\">— Team "
+        + appName
+        + " · Vedic wisdom, modern guidance</p>"
+        + "</div></body></html>";
+  }
 
   private String firstName(String name) {
     if (name == null || name.isBlank()) return "Friend";

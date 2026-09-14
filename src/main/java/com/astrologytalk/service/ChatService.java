@@ -12,9 +12,9 @@ import com.astrologytalk.repository.ChatMessageRepository;
 import com.astrologytalk.repository.ChatSessionRepository;
 import com.astrologytalk.repository.UserRepository;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
