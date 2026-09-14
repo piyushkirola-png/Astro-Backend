@@ -5,6 +5,7 @@ import com.astrologytalk.dto.response.AdminStatsResponse.DayPoint;
 import com.astrologytalk.dto.response.AdminStatsResponse.DurationPoint;
 import com.astrologytalk.dto.response.AdminStatsResponse.StatusPoint;
 import com.astrologytalk.entity.Role;
+import com.astrologytalk.entity.User;
 import com.astrologytalk.repository.ChatMessageRepository;
 import com.astrologytalk.repository.PaymentRepository;
 import com.astrologytalk.repository.UserRepository;
@@ -16,7 +17,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +28,7 @@ public class AdminServiceImpl implements AdminService {
   private final UserRepository userRepository;
   private final ChatMessageRepository chatMessageRepository;
   private final PaymentRepository paymentRepository;
+  private final PasswordEncoder passwordEncoder;
 
   private static final int DAYS = 7;
   private static final DateTimeFormatter ISO = DateTimeFormatter.ISO_DATE;
@@ -71,7 +75,6 @@ public class AdminServiceImpl implements AdminService {
     }
 
     List<DurationPoint> revenueByDuration = buildRevenueByDuration();
-
     List<StatusPoint> statusDistribution = buildStatusDistribution();
 
     return AdminStatsResponse.builder()
@@ -84,6 +87,20 @@ public class AdminServiceImpl implements AdminService {
         .revenueByDuration(revenueByDuration)
         .statusDistribution(statusDistribution)
         .build();
+  }
+
+  @Override
+  @Transactional
+  public void resetUserPassword(Long userId, String newPassword) {
+    if (newPassword == null || newPassword.length() < 8) {
+      throw new RuntimeException("Password must be at least 8 characters");
+    }
+
+    User user =
+        userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+    user.setPassword(passwordEncoder.encode(newPassword));
+    userRepository.save(user);
   }
 
   private List<DurationPoint> buildRevenueByDuration() {
@@ -120,12 +137,7 @@ public class AdminServiceImpl implements AdminService {
       for (Object[] row : rows) {
         String status = row[0] != null ? row[0].toString() : "UNKNOWN";
         long count = row[1] != null ? ((Number) row[1]).longValue() : 0L;
-
-        if (counts.containsKey(status)) {
-          counts.put(status, count);
-        } else {
-          counts.put(status, count);
-        }
+        counts.put(status, count);
       }
     } catch (Exception e) {
       // leave defaults

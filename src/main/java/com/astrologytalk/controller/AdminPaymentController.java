@@ -4,6 +4,7 @@ import com.astrologytalk.common.response.ApiResponse;
 import com.astrologytalk.dto.response.PaymentResponse;
 import com.astrologytalk.dto.response.WalletPackageResponse;
 import com.astrologytalk.service.AdminPaymentService;
+import com.astrologytalk.service.CsvExportService;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ public class AdminPaymentController {
   private final AdminPaymentService adminPaymentService;
   private final com.astrologytalk.repository.PaymentRepository paymentRepository;
   private final com.astrologytalk.service.InvoicePdfService invoicePdfService;
+  private final CsvExportService csvExportService;
 
   @GetMapping("/wallet/packages")
   public ResponseEntity<ApiResponse<List<WalletPackageResponse>>> listPackages() {
@@ -76,6 +78,18 @@ public class AdminPaymentController {
     headers.setContentDispositionFormData("attachment", orderId + ".pdf");
 
     return new ResponseEntity<>(pdf, headers, org.springframework.http.HttpStatus.OK);
+  }
+
+  @GetMapping("/export")
+  public ResponseEntity<byte[]> exportAllPayments() {
+    byte[] csv = csvExportService.exportAllPayments();
+
+    org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+    headers.setContentType(
+        org.springframework.http.MediaType.parseMediaType("text/csv; charset=UTF-8"));
+    headers.setContentDispositionFormData("attachment", "payments_all.csv");
+
+    return new ResponseEntity<>(csv, headers, org.springframework.http.HttpStatus.OK);
   }
 
   @GetMapping("/all")

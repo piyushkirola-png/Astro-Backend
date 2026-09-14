@@ -5,11 +5,15 @@ import com.astrologytalk.dto.request.PaymentRequest;
 import com.astrologytalk.dto.request.WalletRechargeRequest;
 import com.astrologytalk.dto.response.*;
 import com.astrologytalk.entity.User;
+import com.astrologytalk.service.CsvExportService;
 import com.astrologytalk.service.PaymentService;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentController {
 
   private final PaymentService paymentService;
+  private final CsvExportService csvExportService;
 
   @PostMapping("/initiate/report")
   public ResponseEntity<ApiResponse<PaymentInitiateResponse>> initiateReport(
@@ -65,6 +70,17 @@ public class PaymentController {
   public ResponseEntity<byte[]> downloadInvoice(
       @PathVariable String orderId, @AuthenticationPrincipal User user) {
     return paymentService.generateInvoiceForUser(orderId, user.getId());
+  }
+
+  @GetMapping("/export")
+  public ResponseEntity<byte[]> exportMyPayments(@AuthenticationPrincipal User user) {
+    byte[] csv = csvExportService.exportUserPayments(user.getId());
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.parseMediaType("text/csv; charset=UTF-8"));
+    headers.setContentDispositionFormData("attachment", "payments_user_" + user.getId() + ".csv");
+
+    return new ResponseEntity<>(csv, headers, HttpStatus.OK);
   }
 
   @GetMapping("/history")

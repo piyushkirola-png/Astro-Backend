@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface ChatSessionRepository extends JpaRepository<ChatSession, Long> {
 
   List<ChatSession> findByUserIdOrderByUpdatedAtDesc(Long userId);
+
+  List<ChatSession> findByUserIdOrderByIsPinnedDescPinnedAtDescUpdatedAtDesc(Long userId);
 }

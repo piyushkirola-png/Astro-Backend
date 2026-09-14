@@ -72,17 +72,50 @@ public class ChatController {
     return ResponseEntity.ok(ApiResponse.success("Session renamed", null));
   }
 
+  @PatchMapping("/sessions/{id}/pin")
+  public ResponseEntity<ApiResponse<Void>> togglePin(
+      @PathVariable Long id, @AuthenticationPrincipal User user) {
+    chatService.togglePin(id, user.getId());
+    return ResponseEntity.ok(ApiResponse.success("Pin toggled", null));
+  }
+
+  @PostMapping("/sessions/bulk-delete")
+  public ResponseEntity<ApiResponse<Void>> bulkDelete(
+      @AuthenticationPrincipal User user, @RequestBody Map<String, List<Long>> body) {
+    List<Long> ids = body.getOrDefault("ids", List.of());
+    chatService.bulkDelete(ids, user.getId());
+    return ResponseEntity.ok(ApiResponse.success("Sessions deleted", null));
+  }
+
+  @PostMapping("/sessions/bulk-pin")
+  public ResponseEntity<ApiResponse<Void>> bulkPin(
+      @AuthenticationPrincipal User user, @RequestBody Map<String, Object> body) {
+    @SuppressWarnings("unchecked")
+    List<Long> ids = (List<Long>) body.getOrDefault("ids", List.of());
+    boolean pinned = Boolean.TRUE.equals(body.get("pinned"));
+    chatService.bulkPin(ids, user.getId(), pinned);
+    return ResponseEntity.ok(ApiResponse.success("Sessions updated", null));
+  }
+
   @PostMapping("/heartbeat")
   public ResponseEntity<ApiResponse<Map<String, Integer>>> heartbeat(
-      @AuthenticationPrincipal User user,
-      @RequestBody(required = false) Map<String, Integer> body) {
+      @AuthenticationPrincipal User user, @RequestBody(required = false) Map<String, Object> body) {
 
     int seconds = 10;
-    if (body != null && body.get("seconds") != null) {
-      seconds = Math.max(1, Math.min(60, body.get("seconds")));
+    Long sessionId = null;
+
+    if (body != null) {
+      Object secObj = body.get("seconds");
+      if (secObj instanceof Number) {
+        seconds = Math.max(1, Math.min(60, ((Number) secObj).intValue()));
+      }
+      Object sessObj = body.get("sessionId");
+      if (sessObj instanceof Number) {
+        sessionId = ((Number) sessObj).longValue();
+      }
     }
 
-    int newBalance = chatService.heartbeat(user.getId(), seconds);
+    int newBalance = chatService.heartbeat(user.getId(), sessionId, seconds);
 
     return ResponseEntity.ok(
         ApiResponse.success("Heartbeat recorded", Map.of("chatSecondsBalance", newBalance)));

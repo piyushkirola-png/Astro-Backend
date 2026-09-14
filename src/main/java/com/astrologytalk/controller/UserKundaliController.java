@@ -6,9 +6,13 @@ import com.astrologytalk.dto.response.KundaliBasicResponse;
 import com.astrologytalk.dto.response.KundaliChartResponse;
 import com.astrologytalk.dto.response.PlanetaryPositionResponse;
 import com.astrologytalk.entity.User;
+import com.astrologytalk.service.KundaliPdfService;
 import com.astrologytalk.service.KundaliService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserKundaliController {
 
   private final KundaliService kundaliService;
+  private final KundaliPdfService kundaliPdfService;
 
   @GetMapping("/basic")
   public ResponseEntity<ApiResponse<KundaliBasicResponse>> getBasic(
@@ -49,5 +54,16 @@ public class UserKundaliController {
       @AuthenticationPrincipal User user) {
     return ResponseEntity.ok(
         ApiResponse.success("Dasha periods fetched", kundaliService.getDashaPeriods(user.getId())));
+  }
+
+  @GetMapping("/pdf")
+  public ResponseEntity<byte[]> downloadPdf(@AuthenticationPrincipal User user) {
+    byte[] pdf = kundaliPdfService.generate(user);
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_PDF);
+    headers.setContentDispositionFormData("attachment", "kundali_" + user.getId() + ".pdf");
+
+    return new ResponseEntity<>(pdf, headers, HttpStatus.OK);
   }
 }

@@ -1,10 +1,14 @@
 package com.astrologytalk.controller;
 
 import com.astrologytalk.common.response.ApiResponse;
+import com.astrologytalk.dto.request.ChangePasswordRequest;
+import com.astrologytalk.dto.request.ResetUserPasswordRequest;
 import com.astrologytalk.dto.request.UpdateProfileRequest;
 import com.astrologytalk.dto.response.UserResponse;
 import com.astrologytalk.entity.User;
+import com.astrologytalk.service.AdminService;
 import com.astrologytalk.service.AvatarStorageService;
+import com.astrologytalk.service.PasswordService;
 import com.astrologytalk.service.UserService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -22,7 +26,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserController {
 
   private final UserService userService;
+  private final PasswordService passwordService;
   private final AvatarStorageService avatarStorageService;
+  private final AdminService adminService;
 
   // ----- GET /api/users/me -----
   @GetMapping("/me")
@@ -46,6 +52,17 @@ public class UserController {
     String url = avatarStorageService.store(file, user.getId());
     return ResponseEntity.ok(
         ApiResponse.success("Avatar updated", userService.updateAvatar(user.getId(), url)));
+  }
+
+  // ----- POST /api/users/me/password -----
+  @PostMapping("/me/password")
+  public ResponseEntity<ApiResponse<Void>> changePassword(
+      @AuthenticationPrincipal User user, @Valid @RequestBody ChangePasswordRequest request) {
+
+    passwordService.changePassword(
+        user.getId(), request.getCurrentPassword(), request.getNewPassword());
+
+    return ResponseEntity.ok(ApiResponse.success("Password changed successfully", null));
   }
 
   // ----- Admin: GET /api/users -----
@@ -79,6 +96,15 @@ public class UserController {
     return ResponseEntity.ok(
         ApiResponse.success(
             active ? "User activated" : "User deactivated", userService.setActive(id, active)));
+  }
+
+  // ----- Admin: POST /api/users/{id}/reset-password -----
+  @PostMapping("/{id}/reset-password")
+  @PreAuthorize("hasRole('ADMIN')")
+  public ResponseEntity<ApiResponse<Void>> resetUserPassword(
+      @PathVariable Long id, @Valid @RequestBody ResetUserPasswordRequest request) {
+    adminService.resetUserPassword(id, request.getNewPassword());
+    return ResponseEntity.ok(ApiResponse.success("Password reset successfully", null));
   }
 
   // ----- Admin: DELETE /api/users/{id} -----

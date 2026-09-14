@@ -37,6 +37,12 @@ public class ChatSession {
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
 
+  @Column(name = "is_pinned")
+  private Boolean isPinned = false;
+
+  @Column(name = "pinned_at")
+  private LocalDateTime pinnedAt;
+
   @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("createdAt ASC")
   private List<ChatMessage> messages = new ArrayList<>();

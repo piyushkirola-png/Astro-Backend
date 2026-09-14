@@ -56,10 +56,13 @@ CREATE TABLE
         user_id BIGINT NOT NULL,
         title VARCHAR(255) NOT NULL DEFAULT 'New Chat',
         is_active BOOLEAN DEFAULT TRUE,
+        is_pinned BOOLEAN DEFAULT FALSE,
+        pinned_at TIMESTAMP NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
-        INDEX idx_chat_sessions_user (user_id)
+        INDEX idx_chat_sessions_user (user_id),
+        INDEX idx_chat_sessions_pinned (user_id, is_pinned, pinned_at)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE
@@ -222,7 +225,8 @@ CREATE TABLE
         base_amount DECIMAL(10, 2) NULL,
         gst_amount DECIMAL(10, 2) NULL,
         gst_rate DECIMAL(5, 2) NULL,
-        invoice_number VARCHAR(32) NULL UNIQUE,,
+        invoice_number VARCHAR(32) NULL UNIQUE,
+,
         currency VARCHAR(8) NOT NULL DEFAULT 'INR',
         status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
         gateway VARCHAR(32) NOT NULL,
@@ -307,4 +311,47 @@ CREATE TABLE
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         UNIQUE KEY uq_horoscope_variant (zodiac, period, variant),
         INDEX idx_horoscope_lookup (zodiac, period, is_active)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE
+    IF NOT EXISTS otp_codes (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        email VARCHAR(100) NOT NULL,
+        code VARCHAR(6) NOT NULL,
+        purpose VARCHAR(20) NOT NULL,
+        expires_at TIMESTAMP NOT NULL,
+        used BOOLEAN DEFAULT FALSE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_otp_email_purpose (email, purpose, used),
+        INDEX idx_otp_expires (expires_at)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE
+    IF NOT EXISTS password_reset_tokens (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        user_id BIGINT NOT NULL,
+        token VARCHAR(64) NOT NULL UNIQUE,
+        expires_at TIMESTAMP NOT NULL,
+        used BOOLEAN DEFAULT FALSE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users (id),
+        INDEX idx_prt_token (token),
+        INDEX idx_prt_user (user_id)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE
+    IF NOT EXISTS ai_usage_logs (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        user_id BIGINT NOT NULL,
+        session_id BIGINT NOT NULL,
+        usage_date DATE NOT NULL,
+        message_count INT NOT NULL DEFAULT 0,
+        seconds_used INT NOT NULL DEFAULT 0,
+        rupees_deducted DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        UNIQUE KEY uq_usage_user_session_date (user_id, session_id, usage_date),
+        FOREIGN KEY (user_id) REFERENCES users (id),
+        FOREIGN KEY (session_id) REFERENCES chat_sessions (id) ON DELETE CASCADE,
+        INDEX idx_usage_user_date (user_id, usage_date)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;

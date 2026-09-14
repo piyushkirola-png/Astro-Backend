@@ -12,11 +12,13 @@ import com.astrologytalk.repository.ChatMessageRepository;
 import com.astrologytalk.repository.ChatSessionRepository;
 import com.astrologytalk.repository.UserRepository;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ChatService {
@@ -24,7 +26,7 @@ public class ChatService {
   private final ChatSessionRepository sessionRepo;
   private final ChatMessageRepository messageRepo;
   private final UserRepository userRepo;
-  // private final OpenAiService openAiService;
+  private final AiUsageLogService aiUsageLogService;
   private final GeminiService geminiService;
 
   // ---------- Create session + greeting ----------
@@ -52,7 +54,7 @@ public class ChatService {
 
   // ---------- List sessions ----------
   public List<ChatSessionResponse> listSessions(Long userId) {
-    return sessionRepo.findByUserIdOrderByUpdatedAtDesc(userId).stream()
+    return sessionRepo.findByUserIdOrderByIsPinnedDescPinnedAtDescUpdatedAtDesc(userId).stream()
         .map(this::toSessionSummary)
         .collect(Collectors.toList());
   }
@@ -100,6 +102,12 @@ public class ChatService {
 
     addMessage(session, MessageRole.USER, content);
 
+    try {
+      aiUsageLogService.recordMessage(userId, sessionId);
+    } catch (Exception e) {
+      log.warn("[Chat] Failed to log message usage: {}", e.getMessage());
+    }
+
     if ("New Chat".equals(session.getTitle())) {
       session.setTitle(shorten(content, 40));
       sessionRepo.save(session);
@@ -115,13 +123,22 @@ public class ChatService {
 
   // ---------- Heartbeat — decrement balance ----------
   @Transactional
-  public int heartbeat(Long userId, int seconds) {
+  public int heartbeat(Long userId, Long sessionId, int seconds) {
     User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
     int current = user.getChatSecondsBalance() == null ? 0 : user.getChatSecondsBalance();
+    int actuallyUsed = Math.min(current, seconds);
     int updated = Math.max(0, current - seconds);
     user.setChatSecondsBalance(updated);
     userRepo.save(user);
+
+    if (sessionId != null && actuallyUsed > 0) {
+      try {
+        aiUsageLogService.recordSeconds(userId, sessionId, actuallyUsed);
+      } catch (Exception e) {
+        log.warn("[Chat] Failed to log seconds usage: {}", e.getMessage());
+      }
+    }
 
     return updated;
   }
@@ -147,6 +164,48 @@ public class ChatService {
     if (!session.getUser().getId().equals(userId)) throw new RuntimeException("Access denied");
     session.setTitle(title);
     sessionRepo.save(session);
+  }
+
+  @Transactional
+  public void togglePin(Long sessionId, Long userId) {
+    ChatSession session =
+        sessionRepo
+            .findById(sessionId)
+            .orElseThrow(() -> new RuntimeException("Session not found"));
+    if (!session.getUser().getId().equals(userId)) throw new RuntimeException("Access denied");
+
+    boolean newPinned = !Boolean.TRUE.equals(session.getIsPinned());
+    session.setIsPinned(newPinned);
+    session.setPinnedAt(newPinned ? java.time.LocalDateTime.now() : null);
+    sessionRepo.save(session);
+  }
+
+  @Transactional
+  public void bulkDelete(java.util.List<Long> ids, Long userId) {
+    if (ids == null || ids.isEmpty()) return;
+
+    java.util.List<ChatSession> sessions = sessionRepo.findAllById(ids);
+    for (ChatSession s : sessions) {
+      if (!s.getUser().getId().equals(userId)) {
+        throw new RuntimeException("Access denied for session " + s.getId());
+      }
+    }
+    sessionRepo.deleteAll(sessions);
+  }
+
+  @Transactional
+  public void bulkPin(java.util.List<Long> ids, Long userId, boolean pinned) {
+    if (ids == null || ids.isEmpty()) return;
+
+    java.util.List<ChatSession> sessions = sessionRepo.findAllById(ids);
+    for (ChatSession s : sessions) {
+      if (!s.getUser().getId().equals(userId)) {
+        throw new RuntimeException("Access denied for session " + s.getId());
+      }
+      s.setIsPinned(pinned);
+      s.setPinnedAt(pinned ? java.time.LocalDateTime.now() : null);
+    }
+    sessionRepo.saveAll(sessions);
   }
 
   // ---------- Helpers ----------
@@ -176,6 +235,7 @@ public class ChatService {
         .createdAt(s.getCreatedAt())
         .updatedAt(s.getUpdatedAt())
         .lastMessagePreview(preview)
+        .isPinned(Boolean.TRUE.equals(s.getIsPinned()))
         .build();
   }
 
