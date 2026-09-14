@@ -1,8 +1,7 @@
-package com.astrologytalk.controller;
+package com.astrologytalk.paymentgateway.payu;
 
 import com.astrologytalk.entity.Payment;
 import com.astrologytalk.repository.PaymentRepository;
-import com.astrologytalk.paymentgateway.payu.PayUGatewayService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

@@ -1,4 +1,4 @@
-package com.astrologytalk.controller;
+package com.astrologytalk.paymentgateway.payu;
 
 import com.astrologytalk.entity.Payment;
 import com.astrologytalk.entity.User;
@@ -6,7 +6,6 @@ import com.astrologytalk.repository.PaymentRepository;
 import com.astrologytalk.repository.UserRepository;
 import com.astrologytalk.service.EmailService;
 import com.astrologytalk.service.InvoiceNumberService;
-import com.astrologytalk.paymentgateway.payu.PayUGatewayService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

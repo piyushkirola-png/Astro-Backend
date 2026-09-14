@@ -226,7 +226,6 @@ CREATE TABLE
         gst_amount DECIMAL(10, 2) NULL,
         gst_rate DECIMAL(5, 2) NULL,
         invoice_number VARCHAR(32) NULL UNIQUE,
-,
         currency VARCHAR(8) NOT NULL DEFAULT 'INR',
         status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
         gateway VARCHAR(32) NOT NULL,
@@ -312,6 +311,36 @@ CREATE TABLE
         UNIQUE KEY uq_horoscope_variant (zodiac, period, variant),
         INDEX idx_horoscope_lookup (zodiac, period, is_active)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS public_horoscope_entries (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    zodiac VARCHAR(20) NOT NULL,
+    sanskrit_name VARCHAR(50) NOT NULL,
+    symbol VARCHAR(50) NOT NULL,
+    symbol_emoji VARCHAR(8) NOT NULL,
+    ruling_planet VARCHAR(50) NOT NULL,
+    tarot_card VARCHAR(50) NOT NULL,
+    lucky_stone VARCHAR(100) NOT NULL,
+    date_range VARCHAR(50) NOT NULL,
+    period VARCHAR(20) NOT NULL,
+    main_text TEXT NOT NULL,
+    lucky_number INT NOT NULL,
+    lucky_color VARCHAR(32) NOT NULL,
+    auspicious_time VARCHAR(50) NOT NULL,
+    mood VARCHAR(50) NOT NULL,
+    love_score INT NOT NULL,
+    love_text TEXT NOT NULL,
+    finance_score INT NOT NULL,
+    finance_text TEXT NOT NULL,
+    career_score INT NOT NULL,
+    career_text TEXT NOT NULL,
+    health_score INT NOT NULL,
+    health_text TEXT NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uq_pub_horoscope (zodiac, period),
+    INDEX idx_pub_horoscope_lookup (zodiac, period, is_active)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE
     IF NOT EXISTS otp_codes (

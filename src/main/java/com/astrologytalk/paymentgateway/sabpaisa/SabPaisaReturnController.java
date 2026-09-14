@@ -1,4 +1,4 @@
-package com.astrologytalk.controller;
+package com.astrologytalk.paymentgateway.sabpaisa;
 
 import com.astrologytalk.entity.Payment;
 import com.astrologytalk.entity.User;
